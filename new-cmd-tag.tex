@@ -1,0 +1,103 @@
+\documentclass{article}
+\usepackage[UTF8]{ctex}
+\usepackage{xcolor}
+\usepackage{mdframed}  % 边框支持
+
+% ===== 定义成对命令示例 =====
+% 示例1：您的原始示例
+\newcommand{\revisedalgorithm}{\begin{mdframed}[linecolor=red,linewidth=1pt]}
+\newcommand{\revisedalgorithmend}{\end{mdframed}}
+
+% 示例2：改进的文本框命令
+\newcommand{\textbox}[2][red]{%
+  \begin{mdframed}[linecolor=#1]
+  \begin{minipage}{\linewidth}
+  #2
+  \end{minipage}
+  \end{mdframed}
+}
+
+\title{LaTeX成对命令模式教学}
+\author{Thales}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\section{什么是成对命令模式？}
+
+成对命令模式是指使用两个独立的 \verb|\newcommand| 来模拟 \verb|begin/end| 环境的功能。
+
+\section{您的示例}
+
+您的代码示例：
+\begin{verbatim}
+\newcommand{\revisedalgorithm}{\begin{mdframed}[linecolor=red]}
+\newcommand{\revisedalgorithmend}{\end{mdframed}}
+\end{verbatim}
+
+\section{如何使用？}
+
+\subsection{包裹文本内容}
+
+对于文本内容，最好使用专门的文本框命令：
+
+定义：
+\begin{verbatim}
+\newcommand{\textbox}[2][red]{%
+  \begin{mdframed}[linecolor=#1]
+  \begin{minipage}{\linewidth}
+  #2
+  \end{minipage}
+  \end{mdframed}
+}
+\end{verbatim}
+
+使用：
+\begin{verbatim}
+\textbox{这是红色边框的文本内容。}
+\end{verbatim}
+
+实际效果：
+\textbox{这是红色边框的文本内容。}
+
+\subsection{使用可选参数}
+
+\begin{verbatim}
+\textbox[blue]{这是蓝色边框的文本内容。}
+\end{verbatim}
+
+实际效果：
+\textbox[blue]{这是蓝色边框的文本内容。}
+
+\section{您的 revisedalgorithm 命令}
+
+您的 \verb|\revisedalgorithm| 命令更适合包裹算法、表格等环境：
+
+定义：
+\begin{verbatim}
+\newcommand{\revisedalgorithm}{\begin{mdframed}[linecolor=blue]}
+\newcommand{\revisedalgorithmend}{\end{mdframed}}
+\end{verbatim}
+
+使用示例（假设有算法环境）：
+\begin{verbatim}
+\revisedalgorithm
+\begin{algorithm}
+算法内容
+\end{algorithm}
+\revisedalgorithmend
+\end{verbatim}
+
+\section{为什么使用这种模式？}
+
+\subsection{优势}
+
+\begin{enumerate}
+  \item \textbf{条件控制灵活}：可以方便地添加条件判断
+  \item \textbf{命名自由}：可以自定义有意义的命令名
+  \item \textbf{简单直观}：不需要定义完整环境
+\end{enumerate}
+
+
+\end{document}

@@ -1,0 +1,131 @@
+\documentclass{article}
+\usepackage[UTF8]{ctex}
+\usepackage{xcolor}  % 需要颜色支持
+\usepackage{hyperref}
+
+% ========== 定义自定义命令 ==========
+\newcommand{\revised}[1]{\textcolor{red}{#1}}  % 修订标记
+\newcommand{\code}[1]{\texttt{#1}}              % 代码样式
+\newcommand{\keyword}[1]{\textbf{#1}}           % 关键词
+\newcommand{\note}[1]{\textit{\textcolor{blue}{#1}}}  % 注释
+
+% ========== 带参数的自定义命令 ==========
+\newcommand{\important}[2][red]{\textcolor{#1}{\textbf{#2}}}  % 可选参数
+\newcommand{\version}[1]{v#1}                                 % 版本号
+
+\newcommand{\email}[1]{\href{mailto:#1}{#1}}
+\newcommand{\highlight}[2][yellow]{\colorbox{#1}{#2}}
+
+
+\title{LaTeX自定义命令教学}
+\author{Thales}
+\date{2025年12月}
+
+\begin{document}
+\maketitle
+
+\section{自定义命令示例}
+
+\subsection{基本命令使用}
+
+定义新命令
+\begin{verbatim}
+  \newcommand{\revised}[1]{\textcolor{red}{#1}}  % 修订标记
+  \newcommand{\code}[1]{\texttt{#1}}              % 代码样式
+  \newcommand{\keyword}[1]{\textbf{#1}}           % 关键词
+  \newcommand{\note}[1]{\textit{\textcolor{blue}{#1}}}  % 注释
+\end{verbatim}
+
+
+这是一个\revised{修订过的}文本。
+\begin{verbatim}
+  这是一个\revised{修订过的}文本。
+\end{verbatim}
+
+
+这是\code{代码样式}的示例。
+\begin{verbatim}
+  这是\code{代码样式}的示例。
+\end{verbatim}
+
+这是\keyword{关键词}强调。
+\begin{verbatim}
+  这是\keyword{关键词}强调。
+\end{verbatim}
+
+这是\note{蓝色斜体的注释}。
+\begin{verbatim}
+  这是\note{蓝色斜体的注释}。
+\end{verbatim}
+
+\subsection{带可选参数的命令}
+
+
+定义新命令
+\begin{verbatim}
+  \newcommand{\important}[2][red]{\textcolor{#1}{\textbf{#2}}}  % 可选参数
+  \newcommand{\version}[1]{v#1}                                 % 版本号
+\end{verbatim}
+
+
+\important{重要内容！}
+\begin{verbatim}
+  \important{重要内容！}
+\end{verbatim}
+
+\important[green]{绿色重要内容！}
+\begin{verbatim}
+  \important[green]{绿色重要内容！}
+\end{verbatim}
+
+当前版本：\version{1.0}
+\begin{verbatim}
+  当前版本：\version{1.0}
+\end{verbatim}
+\section{命令定义语法详解}
+
+\subsection{\texttt{\textbackslash newcommand}}
+
+语法：\code{\textbackslash newcommand\{\textbackslash 命令名\}[参数个数]\{命令体\}}
+
+示例：
+\begin{verbatim}
+\newcommand{\revised}[1]{\textcolor{red}{#1}}
+% 1. \revised 是命令名
+% 2. [1] 表示有1个参数
+% 3. \textcolor{red}{#1} 是命令体，#1代表第一个参数
+\end{verbatim}
+
+\subsection{使用示例}
+
+定义：
+\begin{verbatim}
+\newcommand{\email}[1]{\href{mailto:#1}{#1}}
+\end{verbatim}
+
+联系邮箱：\email{example@test.com}
+\begin{verbatim}
+  联系邮箱：\email{example@test.com}
+\end{verbatim}
+
+
+\subsection{带默认值的命令}
+定义:
+\begin{verbatim}
+  \newcommand{\highlight}[2][yellow]{\colorbox{#1}{#2}}
+\end{verbatim}
+
+\highlight{黄色高亮}
+
+\begin{verbatim}
+  \highlight{黄色高亮}
+\end{verbatim}
+
+\highlight[green]{绿色高亮}
+
+\begin{verbatim}
+  \highlight[green]{绿色高亮}
+\end{verbatim}
+
+
+\end{document}

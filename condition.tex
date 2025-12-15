@@ -1,0 +1,153 @@
+\documentclass{article}
+\usepackage[UTF8]{ctex}
+\usepackage{xcolor}
+
+\title{LaTeX条件编译：论文修订标记开关}
+\author{Thales}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\section{条件编译基础}
+
+\subsection{定义条件开关}
+\begin{verbatim}
+\newif\ifshowmark  % 定义名为 showmark 的条件开关
+\end{verbatim}
+
+\subsection{设置开关状态}
+\begin{verbatim}
+\showmarktrue   % 打开：显示修订标记
+%\showmarkfalse % 关闭：隐藏修订标记
+\end{verbatim}
+
+\section{实际示例}
+
+\subsection{定义标记命令}
+\begin{verbatim}
+\newif\ifshowmark
+\showmarktrue   % 设为 true 显示标记
+
+\ifshowmark
+    % 打开时：文本显示为红色（有标记）
+    \newcommand{\marked}[1]{\textcolor{red}{#1}}
+\else
+    % 关闭时：正常显示文本（无标记）
+    \newcommand{\marked}[1]{#1}
+\fi
+\end{verbatim}
+
+\subsection{正确做法：避免重复定义}
+
+\begin{verbatim}
+\newif\ifshowmark
+\showmarktrue
+
+% 先统一定义默认版本
+\providecommand{\marked}[1]{#1}
+
+% 根据条件重新定义
+\ifshowmark
+    \renewcommand{\marked}[1]{\textcolor{red}{#1}}
+\fi
+\end{verbatim}
+
+\section{使用效果演示}
+
+\subsection{当前设置}
+\begin{verbatim}
+\newif\ifshowmark
+\showmarktrue  % 当前打开标记模式
+
+% 统一定义
+\providecommand{\marked}[1]{#1}
+
+% 条件重定义
+\ifshowmark
+    \renewcommand{\marked}[1]{\textcolor{red}{#1}}
+\fi
+\end{verbatim}
+
+使用示例：
+\begin{verbatim}
+原始句子：机器学习算法效果很好。
+修改后：\marked{深度学习}算法效果\marked{非常好}。
+\end{verbatim}
+
+实际效果：
+\newif\ifshowmark
+\showmarktrue
+\providecommand{\marked}[1]{#1}
+\ifshowmark
+  \renewcommand{\marked}[1]{\textcolor{red}{#1}}
+\fi
+原始句子：机器学习算法效果很好。
+修改后：\marked{深度学习}算法效果\marked{非常好}。
+
+\section{切换模式演示}
+
+\subsection{模式1：显示标记 (showmarktrue)}
+\begin{verbatim}
+\newif\ifshowmark
+\showmarktrue
+
+\providecommand{\marked}[1]{#1}
+\ifshowmark
+    \renewcommand{\marked}[1]{\textcolor{red}{#1}}
+\fi
+
+使用：\marked{修改的内容}
+\end{verbatim}
+
+效果：修改的内容会显示为\newif\ifshowmark\showmarktrue\providecommand{\marked}[1]{#1}\ifshowmark\renewcommand{\marked}[1]{\textcolor{red}{#1}}\fi\textcolor{red}{红色}（有标记）
+
+\subsection{模式2：隐藏标记 (showmarkfalse)}
+\begin{verbatim}
+\newif\ifshowmark
+\showmarkfalse
+
+\providecommand{\marked}[1]{#1}
+\ifshowmark
+    \renewcommand{\marked}[1]{\textcolor{red}{#1}}
+\fi
+
+使用：\marked{修改的内容}
+\end{verbatim}
+
+效果：修改的内容会\newif\ifshowmark\showmarkfalse\providecommand{\marked}[1]{#1}\ifshowmark\renewcommand{\marked}[1]{\textcolor{red}{#1}}\fi正常显示（无标记）
+
+\section{完整论文示例}
+
+\begin{verbatim}
+% === 在论文导言区 ===
+\newif\ifshowmark
+\showmarktrue  % 写作时打开，提交时关闭
+
+\providecommand{\marked}[1]{#1}
+\providecommand{\added}[1]{#1}
+\providecommand{\deleted}[1]{}
+
+\ifshowmark
+    \renewcommand{\marked}[1]{\textcolor{red}{#1}}
+    \renewcommand{\added}[1]{\textcolor{blue}{#1}}
+    \renewcommand{\deleted}[1]{\textcolor{red}{\sout{#1}}}
+\fi
+
+% === 在正文中 ===
+本文提出了一种\added{新的}算法。
+实验结果\marked{显著优于}传统方法。
+我们\deleted{抛弃了}优化了原有框架。
+\end{verbatim}
+
+\section{使用流程}
+
+\begin{enumerate}
+  \item 设置 \verb|\showmarktrue|，编译
+  \item 得到：得到有标记的PDF
+  \item 改为 \verb|\showmarkfalse|，重新编译
+  \item 得到：干净的最终版本PDF
+\end{enumerate}
+
+
+\end{document}

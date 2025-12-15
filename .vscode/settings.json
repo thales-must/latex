@@ -1,0 +1,10 @@
+{
+  "editor.wordWrap": "on",
+  "editor.formatOnSave": true,
+  "[tex]": {
+    "editor.defaultFormatter": "James-Yu.latex-workshop"
+  },
+  "[bib]": {
+    "editor.defaultFormatter": "James-Yu.latex-workshop"
+  }
+}
